@@ -1,0 +1,88 @@
+apply plugin: 'com.android.application'
+
+android {
+	compileSdkVersion rootProject.ext.compileSdkVersion
+	buildToolsVersion rootProject.ext.buildToolsVersion
+	
+	defaultConfig {
+		applicationId "com.project.base.baseproject"
+		minSdkVersion rootProject.ext.minSdkVersion
+		targetSdkVersion rootProject.ext.targetSdkVersion
+		versionCode 1
+		versionName "1.0"
+		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+	}
+	
+	Properties properties = new Properties()
+	properties.load(project.rootProject.file('local.properties').newDataInputStream())
+	
+	signingConfigs {
+		def keystoreFilepath = properties.getProperty("keystore.path")
+		def keystorePSW = properties.getProperty("keystore.password")
+		def keystoreAlias = properties.getProperty("keystore.alias")
+		def keystoreAliasPSW = properties.getProperty("keystore.alias_password")
+		release {
+			storeFile file(keystoreFilepath)
+			storePassword keystorePSW
+			keyAlias keystoreAlias
+			keyPassword keystoreAliasPSW
+		}
+	}
+	
+	buildTypes {
+		debug {
+			signingConfig signingConfigs.release
+		}
+		release {
+			signingConfig signingConfigs.release
+			minifyEnabled true
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+		}
+	}
+	
+	productFlavors {
+		flavorDevelop {
+			buildConfigField("String", "URL", "\"http://192.168.1.130:8086/cloudjn/custApi/cust!\"")
+		}
+		flavorTest {
+			buildConfigField("String", "URL", "\"http://120.77.153.79:8080/custApi/cust!\"")
+		}
+		flavorProduct {
+			buildConfigField("String", "URL", "\"https://www.zhuzhuone.com/custApi/cust!\"")
+		}
+	}
+	
+	android.applicationVariants.all { variant ->
+		variant.outputs.each { output ->
+			output.outputFile = new File(output.outputFile.parent,
+					"app-" + productFlavors.name + "-" + buildType.name + "-v" + defaultConfig.versionName + ".apk");
+		}
+	}
+	
+	dataBinding {
+		enabled true
+	}
+	
+	configurations.all {
+		resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.1'
+	}
+	
+	lintOptions {
+		checkReleaseBuilds false
+		// Or, if you prefer, you can continue to check for errors in release builds,
+		// but continue the build even when errors are found:
+		abortOnError false
+	}
+}
+
+dependencies {
+	testCompile 'junit:junit:4.12'
+	androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+		exclude group: 'com.android.support', module: 'support-annotations'
+	})
+	compile fileTree(dir: 'libs', include: ['*.jar'])
+	
+	compile(rootProject.ext.libAppcompatV7)
+	compile(rootProject.ext.libDesign)
+	compile(rootProject.ext.libRecyclerView)
+}
