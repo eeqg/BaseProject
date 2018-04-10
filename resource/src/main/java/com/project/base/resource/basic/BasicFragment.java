@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.project.base.resource.network.StatusInfo;
 import com.trello.rxlifecycle.LifecycleProvider;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.RxLifecycle;
@@ -15,7 +16,6 @@ import javax.annotation.Nonnull;
 
 import rx.Observable;
 import rx.subjects.BehaviorSubject;
-import wp.resource.network.StatusInfo;
 
 import static android.app.Activity.RESULT_OK;
 

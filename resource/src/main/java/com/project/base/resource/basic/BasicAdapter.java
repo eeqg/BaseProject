@@ -10,9 +10,9 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import wp.resource.R;
-import wp.resource.network.StatusInfo;
-import wp.resource.widget.refresh.RecyclerAdapter;
+import com.kycq.library.refresh.RecyclerAdapter;
+import com.project.base.resource.R;
+import com.project.base.resource.network.StatusInfo;
 
 public abstract class BasicAdapter<AdapterInfo> extends RecyclerAdapter<StatusInfo> {
 	protected AdapterInfo mAdapterInfo;
@@ -190,7 +190,7 @@ public abstract class BasicAdapter<AdapterInfo> extends RecyclerAdapter<StatusIn
 		
 		@Override
 		protected void onRefreshing() {
-			this.ivStatus.setImageResource(R.mipmap.ic_refreshing);
+			this.ivStatus.setImageResource(R.mipmap.ic_loading);
 			this.ivStatus.startAnimation(this.animation);
 			this.tvStatus.setText(R.string.loading_dot);
 			this.tvCheck.setVisibility(View.GONE);

@@ -85,4 +85,6 @@ dependencies {
 	compile(rootProject.ext.libAppcompatV7)
 	compile(rootProject.ext.libDesign)
 	compile(rootProject.ext.libRecyclerView)
+	
+	compile project(path: ':resource')
 }

@@ -6,7 +6,7 @@ import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
-import wp.resource.R;
+import com.project.base.resource.R;
 
 public class ToolbarAction {
 	private Drawable drawable;
@@ -28,7 +28,7 @@ public class ToolbarAction {
 	 */
 	public static ToolbarAction createBack(Context context) {
 		if (context instanceof OnBackListener) {
-			return createBack(ContextCompat.getDrawable(context, R.mipmap.ic_back), (OnBackListener) context);
+			return createBack(ContextCompat.getDrawable(context, R.mipmap.ic_back_white), (OnBackListener) context);
 		}
 		throw new RuntimeException("context must implement ToolbarAction.OnBackListener!");
 	}
@@ -41,7 +41,7 @@ public class ToolbarAction {
 	 * @return 工具栏操作
 	 */
 	public static ToolbarAction createBack(Context context, OnBackListener listener) {
-		return createBack(ContextCompat.getDrawable(context, R.mipmap.ic_back), listener);
+		return createBack(ContextCompat.getDrawable(context, R.mipmap.ic_back_white), listener);
 	}
 	
 	/**

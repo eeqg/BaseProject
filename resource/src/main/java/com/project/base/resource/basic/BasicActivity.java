@@ -66,13 +66,11 @@ public abstract class BasicActivity<P extends BasicContract.Presenter> extends A
 	protected void onResume() {
 		super.onResume();
 		lifecycleSubject.onNext(ViewEvent.RESUME);
-		//MobclickAgent.onResume(this);
 	}
 	
 	@Override
 	protected void onPause() {
 		lifecycleSubject.onNext(ViewEvent.PAUSE);
-		//MobclickAgent.onPause(this);
 		super.onPause();
 	}
 	

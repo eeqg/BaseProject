@@ -48,4 +48,6 @@ dependencies {
 	
 	compile(rootProject.ext.libRetrofitAdapterRxJava)
 	compile(rootProject.ext.libRetrofit)
+	
+	compile(rootProject.ext.libRefresh)
 }
