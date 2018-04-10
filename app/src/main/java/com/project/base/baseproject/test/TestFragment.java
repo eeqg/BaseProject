@@ -1,4 +1,4 @@
-package com.project.base.baseproject;
+package com.project.base.baseproject.test;
 
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.project.base.baseproject.R;
 import com.project.base.baseproject.databinding.FragmentTestBinding;
 import com.project.base.resource.basic.BasicFragment;
 

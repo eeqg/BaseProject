@@ -50,4 +50,5 @@ dependencies {
 	compile(rootProject.ext.libRetrofit)
 	
 	compile(rootProject.ext.libRefresh)
+	compile(rootProject.ext.libRetrofitGson)
 }

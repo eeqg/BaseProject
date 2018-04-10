@@ -1,10 +1,10 @@
-package com.project.base.baseproject;
+package com.project.base.baseproject.home;
 
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 
+import com.project.base.baseproject.R;
 import com.project.base.baseproject.databinding.ActivityHomeBinding;
 import com.project.base.resource.basic.BasicActivity;
 

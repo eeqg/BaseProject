@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+	
+	<data>
+		
+		<import type="com.project.base.resource.basic.ToolbarAction"/>
+		
+		<variable
+			name="leftAction"
+			type="ToolbarAction"/>
+	</data>
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical">
+		
+		<!--<include-->
+			<!--layout="@layout/include_toolbar"-->
+			<!--app:leftAction="@{leftAction}"-->
+			<!--app:title="@{@string/app_name}"/>-->
+		
+		<com.kycq.library.refresh.RefreshLayout
+			android:id="@+id/refreshLayout"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+			
+			<android.support.v7.widget.RecyclerView
+				android:id="@+id/recyclerView"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"/>
+		</com.kycq.library.refresh.RefreshLayout>
+	</LinearLayout>
+</layout>

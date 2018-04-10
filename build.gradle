@@ -43,7 +43,9 @@ ext {
 	libRxLifecycle = 'com.trello:rxlifecycle:1.0'
 	libRetrofit = 'com.squareup.retrofit2:retrofit:2.3.0'
 	libRetrofitAdapterRxJava = 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
+	libRetrofitGson = 'com.squareup.retrofit2:converter-gson:2.3.0'
 	libFresco = 'com.facebook.fresco:fresco:1.4.0'
 	
 	libRefresh = 'com.github.eeqg:KycqRefresh:1.0'
+//	libGson = 'com.google.code.gson:gson:2.6.2'
 }
