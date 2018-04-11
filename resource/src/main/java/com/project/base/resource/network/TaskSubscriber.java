@@ -3,7 +3,6 @@ package com.project.base.resource.network;
 import com.project.base.resource.R;
 import com.project.base.resource.basic.BasicBean;
 import com.project.base.resource.basic.BasicContract;
-import com.project.base.resource.log.LogUtils;
 
 import java.lang.ref.SoftReference;
 
@@ -16,7 +15,6 @@ public abstract class TaskSubscriber<T extends BasicBean> extends AbstractNetwor
 	
 	@Override
 	public void taskStart() {
-		LogUtils.d("test_wp", "taskStart()");
 		BasicContract.View basicView = this.basicViewReference.get();
 		if (basicView != null) {
 			basicView.showLoading();
@@ -25,7 +23,6 @@ public abstract class TaskSubscriber<T extends BasicBean> extends AbstractNetwor
 	
 	@Override
 	public void taskStop() {
-		LogUtils.d("test_wp", "taskStop()");
 		BasicContract.View basicView = this.basicViewReference.get();
 		if (basicView != null) {
 			basicView.hideLoading();
@@ -34,7 +31,6 @@ public abstract class TaskSubscriber<T extends BasicBean> extends AbstractNetwor
 	
 	@Override
 	public void taskSuccess(T basicBean) {
-		LogUtils.d("");
 		BasicContract.View basicView = this.basicViewReference.get();
 		if (basicView != null) {
 			basicView.hideLoading();
@@ -43,7 +39,6 @@ public abstract class TaskSubscriber<T extends BasicBean> extends AbstractNetwor
 	
 	@Override
 	public void taskOther(T basicBean) {
-		LogUtils.d("test_wp", "taskOther()");
 		BasicContract.View basicView = this.basicViewReference.get();
 		if (basicView != null) {
 			if (basicBean.statusInfo.isTokenTimeout()) {
@@ -58,7 +53,6 @@ public abstract class TaskSubscriber<T extends BasicBean> extends AbstractNetwor
 	
 	@Override
 	public void taskFailure(T basicBean) {
-		LogUtils.d("test_wp", "taskFailure()");
 		BasicContract.View basicView = this.basicViewReference.get();
 		if (basicView != null) {
 			basicView.promptMessage(basicBean.statusInfo.statusMessage);
@@ -67,7 +61,6 @@ public abstract class TaskSubscriber<T extends BasicBean> extends AbstractNetwor
 	
 	@Override
 	public void taskError(Throwable throwable) {
-		LogUtils.d("test_wp", "taskError()");
 		BasicContract.View basicView = this.basicViewReference.get();
 		if (basicView != null) {
 			basicView.promptMessage(R.string.network_request_error);

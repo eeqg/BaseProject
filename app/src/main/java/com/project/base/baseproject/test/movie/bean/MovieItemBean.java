@@ -22,4 +22,12 @@ public class MovieItemBean {
 		}
 		return null;
 	}
+	
+	public String formatId() {
+		return "NO." + this.id;
+	}
+	
+	public String formatYear() {
+		return "AT: " + this.year;
+	}
 }

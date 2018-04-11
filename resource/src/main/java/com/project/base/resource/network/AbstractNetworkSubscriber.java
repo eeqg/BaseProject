@@ -1,7 +1,7 @@
 package com.project.base.resource.network;
 
 import com.project.base.resource.basic.BasicBean;
-import com.project.base.resource.log.LogUtils;
+import com.project.base.resource.utils.LogUtils;
 
 import rx.Subscriber;
 
@@ -9,13 +9,13 @@ public abstract class AbstractNetworkSubscriber<T extends BasicBean> extends Sub
 	
 	@Override
 	public final void onStart() {
-		LogUtils.d("test_wp", "onStart()");
+		// LogUtils.d("test_wp", "onStart()");
 		taskStart();
 	}
 	
 	@Override
 	public final void onNext(T basicBean) {
-		LogUtils.d("test_wp", "onNext()");
+		// LogUtils.d("test_wp", "onNext()");
 		if (basicBean.statusInfo.isSuccessful()) {
 			taskSuccess(basicBean);
 		} else if (basicBean.statusInfo.isOther()) {
@@ -27,13 +27,13 @@ public abstract class AbstractNetworkSubscriber<T extends BasicBean> extends Sub
 	
 	@Override
 	public final void onCompleted() {
-		LogUtils.d("test_wp", "onCompleted()");
+		// LogUtils.d("test_wp", "onCompleted()");
 		taskStop();
 	}
 	
 	@Override
 	public final void onError(Throwable throwable) {
-		LogUtils.d("test_wp", "onError()");
+		// LogUtils.d("test_wp", "onError()");
 		taskStop();
 		throwable.printStackTrace();
 		taskError(throwable);

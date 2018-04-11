@@ -26,12 +26,15 @@ public class TestMovieListAdapter extends BasicAdapter<MovieInfoBean> {
 	
 	@Override
 	public void updateAdapterInfo(@NonNull MovieInfoBean movieInfoBean) {
-	
+		this.mAdapterInfo.movieList.addAll(movieInfoBean.movieList);
 	}
 	
 	@Override
 	public boolean hasMore() {
-		return false;
+		if (this.mAdapterInfo == null) {
+			return false;
+		}
+		return this.mAdapterInfo.total > this.getItemCount();
 	}
 	
 	@Override
@@ -56,6 +59,7 @@ public class TestMovieListAdapter extends BasicAdapter<MovieInfoBean> {
 			
 			@Override
 			protected void onBindView(int position) {
+				this.dataBinding.setIndex(String.valueOf(position + 1));
 				this.dataBinding.setMovieItemBean(mAdapterInfo.movieList.get(position));
 				this.dataBinding.executePendingBindings();
 			}

@@ -2,15 +2,18 @@ package com.project.base.resource.network;
 
 import android.support.annotation.NonNull;
 
-import com.project.base.resource.BuildConfig;
+import com.project.base.resource.basic.BasicApp;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.FormBody;
 import okhttp3.Headers;
 import okhttp3.Interceptor;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -24,7 +27,7 @@ public class Network {
 	
 	private static Network INSTANCE;
 	private String realUrl;
-	private Retrofit retrofit;
+	private Retrofit.Builder retrofitBuilder;
 	
 	public static <T> T create(Class<T> service) {
 		if (INSTANCE == null) {
@@ -33,16 +36,25 @@ public class Network {
 		return INSTANCE.createService(service);
 	}
 	
-	private <T> T createService(Class<T> service) {
-		if (this.retrofit == null) {
-			this.retrofit = new Retrofit.Builder()
-					.baseUrl(getReplaceUrl()) // 设置网络请求的Url地址
-					.client(createOkHttpClient()) //okHttp client
-					.addConverterFactory(GsonConverterFactory.create()) // 设置数据解析器
-					.addCallAdapterFactory(RxJavaCallAdapterFactory.create()) // 支持RxJava平台
-					.build();
+	public static <T> T createWith(String baseUrl, Class<T> service) {
+		if (INSTANCE == null) {
+			throw new NullPointerException("config realUrl before create service!");
 		}
-		return this.retrofit.create(service);
+		return INSTANCE.createServiceWith(baseUrl, service);
+	}
+	
+	private <T> T createService(Class<T> service) {
+		return this.retrofitBuilder
+				.baseUrl(getReplaceUrl())
+				.build()
+				.create(service);
+	}
+	
+	private <T> T createServiceWith(String baseUrl, Class<T> service) {
+		return retrofitBuilder
+				.baseUrl(baseUrl)
+				.build()
+				.create(service);
 	}
 	
 	private OkHttpClient createOkHttpClient() {
@@ -59,35 +71,37 @@ public class Network {
 					System.out.println(requestUrl);
 					return chain.proceed(request);
 				}
-				if (BuildConfig.DEBUG) {
+				if (BasicApp.isDebug()) {
 					System.out.println("httpUrl = " + httpUrl);
 				}
 				
-				// RequestBody requestBody = request.body();
-				// if (requestBody instanceof FormBody) {
-				// 	request = request.newBuilder()
-				// 			.url(requestUrl)
-				// 			.headers(getHeaders(true))
-				// 			.method(request.method(), convertBody((FormBody) requestBody))
-				// 			.build();
-				// } else if (requestBody instanceof MultipartBody) {
-				// 	request = request.newBuilder()
-				// 			.url(requestUrl)
-				// 			.method(request.method(), convertBody((MultipartBody) requestBody))
-				// 			.headers(getHeaders(false))
-				// 			.build();
-				// } else if (requestBody instanceof BasicBody) {
+				RequestBody requestBody = request.body();
+				if (requestBody instanceof FormBody) {
+					request = request.newBuilder()
+							.url(httpUrl)
+							// .headers(getHeaders(true))
+							// .method(request.method(), convertBody((FormBody) requestBody))
+							.build();
+				} else if (requestBody instanceof MultipartBody) {
+					request = request.newBuilder()
+							.url(httpUrl)
+							// .method(request.method(), convertBody((MultipartBody) requestBody))
+							// .headers(getHeaders(false))
+							.build();
+				}
+				// else if (requestBody instanceof BasicBody) {
 				// 	request = request.newBuilder()
 				// 			.url(requestUrl)
 				// 			.headers(getHeaders(((BasicBody) requestBody).isEncrypt()))
 				// 			.build();
-				// } else {
-				// 	request = request.newBuilder()
-				// 			.url(requestUrl)
-				// 			.method(request.method(), convertBody())
-				// 			.headers(getHeaders(true))
-				// 			.build();
 				// }
+				else {
+					request = request.newBuilder()
+							.url(httpUrl)
+							// .method(request.method(), convertBody())
+							// .headers(getHeaders(true))
+							.build();
+				}
 				
 				return chain.proceed(request);
 			}
@@ -111,8 +125,18 @@ public class Network {
 		return this.realUrl;
 	}
 	
-	public void setRealUrl(String realUrl) {
+	private void setRealUrl(String realUrl) {
 		this.realUrl = realUrl;
+	}
+	
+	private void iniBuilder() {
+		if (this.retrofitBuilder == null) {
+			this.retrofitBuilder = new Retrofit.Builder()
+					.client(createOkHttpClient())
+					// .addConverterFactory(GsonConverterFactory.create())
+					.addConverterFactory(CustomGsonConverterFactory.create())//custom
+					.addCallAdapterFactory(RxJavaCallAdapterFactory.create());
+		}
 	}
 	
 	public static void configRealUrl(String realUrl) {
@@ -123,6 +147,7 @@ public class Network {
 				}
 			}
 		}
+		INSTANCE.iniBuilder();
 		INSTANCE.setRealUrl(realUrl);
 	}
 }

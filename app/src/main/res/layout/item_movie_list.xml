@@ -9,6 +9,10 @@
 		<import type="com.project.base.baseproject.test.movie.bean.MovieItemBean"/>
 		
 		<variable
+			name="index"
+			type="String"/>
+		
+		<variable
 			name="movieItemBean"
 			type="MovieItemBean"/>
 	</data>
@@ -22,11 +26,15 @@
 		<com.project.base.resource.widget.PictureView
 			android:layout_width="80dp"
 			android:layout_height="80dp"
+			app:roundedCornerRadius="3dp"
+			app:roundingBorderWidth="1px"
+			app:roundingBorderColor="@color/colorThemeDivider"
 			app:pictureUrl="@{movieItemBean.obtainPictureUrl()}"/>
 		
 		<LinearLayout
-			android:layout_width="match_parent"
+			android:layout_width="0dp"
 			android:layout_height="match_parent"
+			android:layout_weight="1"
 			android:layout_marginLeft="10dp"
 			android:layout_marginStart="10dp"
 			android:orientation="vertical">
@@ -36,7 +44,7 @@
 				android:layout_height="wrap_content"
 				android:textSize="@dimen/dimenTextAssisted"
 				android:textColor="@color/colorTextAssisted"
-				android:text="@{movieItemBean.id}"
+				android:text="@{movieItemBean.formatId()}"
 				tools:text="12346"/>
 			
 			<TextView
@@ -53,8 +61,18 @@
 				android:layout_marginTop="8dp"
 				android:textSize="@dimen/dimenTextAssisted"
 				android:textColor="@color/colorTextAssisted"
-				android:text="@{movieItemBean.year}"
+				android:text="@{movieItemBean.formatYear()}"
 				tools:text="1997"/>
 		</LinearLayout>
+		
+		<TextView
+			android:layout_width="32dp"
+			android:layout_height="32dp"
+			android:background="#30aa8900"
+			android:gravity="center"
+			android:text="@{index}"
+			android:textColor="@color/colorTextAssisted"
+			android:textSize="@dimen/dimenTextSecondary"
+			tools:text="12"/>
 	</LinearLayout>
 </layout>

@@ -2,6 +2,7 @@ package com.project.base.resource.basic;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.DisplayMetrics;
@@ -26,6 +27,8 @@ public abstract class BasicApp extends Application {
 	
 	public static BasicApp INSTANCE;
 	
+	private static Boolean isDebug = null;
+	
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -34,6 +37,8 @@ public abstract class BasicApp extends Application {
 		initVersionInfo();
 		initScreenSize();
 		initFresco();
+		
+		syncIsDebug();
 	}
 	
 	/**
@@ -74,6 +79,16 @@ public abstract class BasicApp extends Application {
 				// 				.build()
 				// )
 				.build());
+	}
+	
+	private void syncIsDebug() {
+		if (getApplicationInfo() != null) {
+			isDebug = (getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+		}
+	}
+	
+	public static boolean isDebug() {
+		return isDebug == null ? false : isDebug;
 	}
 	
 	/**

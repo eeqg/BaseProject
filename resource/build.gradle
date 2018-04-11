@@ -39,6 +39,7 @@ dependencies {
 	compile fileTree(dir: 'libs', include: ['*.jar'])
 	
 	compile(rootProject.ext.libAppcompatV7)
+	compile(rootProject.ext.libRecyclerView)
 	
 	compile(rootProject.ext.libRxJava)
 	compile(rootProject.ext.libRxAndroid)
@@ -51,4 +52,6 @@ dependencies {
 	
 	compile(rootProject.ext.libRefresh)
 	compile(rootProject.ext.libRetrofitGson)
+	
+	compile(rootProject.ext.libLogger)
 }

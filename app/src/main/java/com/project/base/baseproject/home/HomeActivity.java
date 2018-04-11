@@ -22,6 +22,7 @@ public class HomeActivity extends BasicActivity {
 	
 	private void observeContent(){
 		HomeFragmentAdapter tabFragmentAdapter = new HomeFragmentAdapter(getSupportFragmentManager());
+		this.dataBinding.viewPager.setOffscreenPageLimit(3);
 		this.dataBinding.viewPager.setAdapter(tabFragmentAdapter);
 		
 		//this.dataBinding.tabLayout.setupWithViewPager(this.dataBinding.viewPager);

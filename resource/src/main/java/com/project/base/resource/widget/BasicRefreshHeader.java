@@ -1,11 +1,9 @@
 package com.project.base.resource.widget;
 
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.View;
+import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,7 +18,7 @@ public class BasicRefreshHeader extends LinearLayout
 	private ImageView ivStatus;
 	private TextView tvStatus;
 	
-	private AnimatorSet animatorSet;
+	private ObjectAnimator animator;
 	
 	public BasicRefreshHeader(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -32,18 +30,10 @@ public class BasicRefreshHeader extends LinearLayout
 		this.ivStatus = (ImageView) findViewById(R.id.ivStatus);
 		this.tvStatus = (TextView) findViewById(R.id.tvStatus);
 		
-		ObjectAnimator flipAnimator = ObjectAnimator.ofFloat(this.ivStatus, View.ROTATION_Y, 0, 90);
-		flipAnimator.setRepeatMode(ValueAnimator.REVERSE);
-		flipAnimator.setRepeatCount(ValueAnimator.INFINITE);
-		
-		ObjectAnimator recoveryAnimator = ObjectAnimator.ofFloat(this.ivStatus, View.ROTATION_Y, 90, 0);
-		recoveryAnimator.setRepeatMode(ValueAnimator.REVERSE);
-		recoveryAnimator.setRepeatCount(ValueAnimator.INFINITE);
-		
-		this.animatorSet = new AnimatorSet();
-		this.animatorSet.setDuration(150);
-		this.animatorSet.setInterpolator(new LinearInterpolator());
-		this.animatorSet.play(flipAnimator).before(recoveryAnimator);
+		animator = ObjectAnimator.ofFloat(this.ivStatus, "rotation", 0F, 3600F);
+		animator.setInterpolator(new LinearInterpolator());
+		animator.setRepeatCount(Animation.INFINITE);
+		animator.setDuration(10000);
 	}
 	
 	@Override
@@ -57,27 +47,27 @@ public class BasicRefreshHeader extends LinearLayout
 	
 	@Override
 	public void onPullToRefresh() {
-		this.animatorSet.end();
+		this.animator.end();
 		this.ivStatus.setRotationY(0);
 		this.tvStatus.setText(R.string.pull_to_refresh);
 	}
 	
 	@Override
 	public void onReleaseToRefresh() {
-		this.animatorSet.end();
+		this.animator.end();
 		this.ivStatus.setRotationY(0);
 		this.tvStatus.setText(R.string.release_to_refresh);
 	}
 	
 	@Override
 	public void onRefresh() {
-		this.animatorSet.start();
+		this.animator.start();
 		this.tvStatus.setText(R.string.loading_dot);
 	}
 	
 	@Override
 	public void onRefreshComplete(StatusInfo statusInfo) {
-		this.animatorSet.end();
+		this.animator.end();
 		this.ivStatus.setRotationY(0);
 		this.tvStatus.setText(R.string.refresh_complete);
 	}

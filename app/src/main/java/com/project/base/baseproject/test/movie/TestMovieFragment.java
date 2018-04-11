@@ -13,7 +13,8 @@ import com.project.base.baseproject.R;
 import com.project.base.baseproject.databinding.FragmentTestMovieBinding;
 import com.project.base.baseproject.test.movie.bean.MovieInfoBean;
 import com.project.base.resource.basic.BasicFragment;
-import com.project.base.resource.log.LogUtils;
+import com.project.base.resource.component.NormalItemDecoration;
+import com.project.base.resource.utils.LogUtils;
 
 import rx.Subscription;
 
@@ -55,14 +56,14 @@ public class TestMovieFragment extends BasicFragment<TestMovieContract.Presenter
 		super.setUserVisibleHint(isVisibleToUser);
 		
 		isVisible = isVisibleToUser;
-		if (isCreated && isVisible) {
-			LogUtils.d("refresh...");
+		if (isCreated && isVisible && this.testMovieListAdapter.getItemCount() == 0) {
 			this.testMovieListAdapter.swipeRefresh();//request data.
 		}
 	}
 	
 	private void observeContent() {
 		this.dataBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+		this.dataBinding.recyclerView.addItemDecoration(new NormalItemDecoration(this.getContext()));
 		
 		this.testMovieListAdapter = new TestMovieListAdapter(this.getContext());
 		this.testMovieListAdapter.setRefreshLayout(this.dataBinding.refreshLayout);
@@ -70,7 +71,11 @@ public class TestMovieFragment extends BasicFragment<TestMovieContract.Presenter
 		this.testMovieListAdapter.setOnTaskListener(new RecyclerAdapter.OnTaskListener<Subscription>() {
 			@Override
 			public Subscription onTask() {
-				return basicPresenter.listMovie(0, 10);
+				int currentPage = testMovieListAdapter.getCurrentPage();
+				// LogUtils.d("currentPage=" + currentPage);
+				int count = 20;
+				int start = (currentPage - 1) * count;
+				return basicPresenter.listMovie(start, count);
 			}
 			
 			@Override
@@ -82,6 +87,7 @@ public class TestMovieFragment extends BasicFragment<TestMovieContract.Presenter
 	
 	@Override
 	public void updateMovieList(MovieInfoBean movieInfoBean) {
+		LogUtils.d("movieInfoBean" + movieInfoBean);
 		this.testMovieListAdapter.swipeResult(movieInfoBean);
 	}
 }
