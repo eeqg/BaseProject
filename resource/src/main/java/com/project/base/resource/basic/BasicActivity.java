@@ -1,5 +1,6 @@
 package com.project.base.resource.basic;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -181,6 +182,11 @@ public abstract class BasicActivity<P extends BasicContract.Presenter> extends A
 			return;
 		}
 		super.onActivityResult(requestCode, resultCode, data);
+	}
+	
+	protected void launchActivity(Class<? extends Activity> clazz){
+		Intent intent = new Intent(mContext, clazz);
+		startActivity(intent);
 	}
 }
 

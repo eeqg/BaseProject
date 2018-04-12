@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+	
+	<data>
+		
+		<import type="android.view.View"/>
+		
+		<import type="android.view.View.OnClickListener"/>
+		
+		<variable
+			name="title"
+			type="String"/>
+		
+		<variable
+			name="content"
+			type="String"/>
+		
+		<variable
+			name="negativeText"
+			type="String"/>
+		
+		<variable
+			name="negativeClickListener"
+			type="OnClickListener"/>
+		
+		<variable
+			name="positiveText"
+			type="String"/>
+		
+		<variable
+			name="positiveClickListener"
+			type="OnClickListener"/>
+	</data>
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@drawable/bg_loading_dialog"
+		android:orientation="vertical">
+		
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="18dp"
+			android:layout_marginRight="18dp"
+			android:layout_marginTop="16dp"
+			android:gravity="center"
+			android:lines="1"
+			android:text="@{title}"
+			android:textColor="@color/colorTextPrimary"
+			android:textSize="@dimen/dimenTextPrimary"
+			android:visibility="@{title == null ? View.GONE : View.VISIBLE}"
+			tools:text="标题"/>
+		
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="18dp"
+			android:gravity="center"
+			android:text="@{content}"
+			android:textColor="@color/colorTextPrimary"
+			android:textSize="@dimen/dimenTextSecondary"
+			android:visibility="@{content == null ? View.GONE : View.VISIBLE}"
+			tools:text="内容内容"/>
+		
+		<View style="@style/ViewDividerHorizontal"/>
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			
+			<TextView
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1.0"
+				android:background="?selectableItemBackground"
+				android:gravity="center"
+				android:onClick="@{negativeClickListener}"
+				android:paddingBottom="15dp"
+				android:paddingTop="13dp"
+				android:text="@{negativeText}"
+				android:textColor="@color/colorTextPrimary"
+				android:textSize="@dimen/dimenTextPrimary"
+				android:visibility="@{negativeText == null ? View.GONE : View.VISIBLE}"
+				tools:text="@string/cancel"/>
+			
+			<View style="@style/ViewDividerVertical"/>
+			
+			<TextView
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1.0"
+				android:background="?selectableItemBackground"
+				android:gravity="center"
+				android:onClick="@{positiveClickListener}"
+				android:paddingBottom="15dp"
+				android:paddingTop="13dp"
+				android:text="@{positiveText}"
+				android:textColor="@color/colorTextAccent"
+				android:textSize="@dimen/dimenTextPrimary"
+				android:visibility="@{positiveText == null ? View.GONE : View.VISIBLE}"
+				tools:text="@string/confirm"/>
+		</LinearLayout>
+	</LinearLayout>
+</layout>

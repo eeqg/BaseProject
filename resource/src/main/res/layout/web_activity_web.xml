@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".web.LoadUrlWebActivity">
+	
+	<data>
+		
+		<import type="android.view.View"/>
+		
+		<import type="android.view.View.OnClickListener"/>
+		
+		<import type="com.project.base.resource.basic.ToolbarAction"/>
+		
+		<variable
+			name="title"
+			type="String"/>
+		
+		<variable
+			name="leftAction"
+			type="ToolbarAction"/>
+		
+		<variable
+			name="rightAction"
+			type="ToolbarAction"/>
+	</data>
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical">
+		
+		<include
+			layout="@layout/include_toolbar"
+			app:leftAction="@{leftAction}"
+			app:rightAction="@{rightAction}"
+			app:title="@{title}"/>
+		
+		<WebView
+			android:id="@+id/webView"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"/>
+	</LinearLayout>
+</layout>

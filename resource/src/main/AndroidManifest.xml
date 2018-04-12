@@ -3,8 +3,15 @@
           package="com.project.base.resource">
 	
 	<application>
-		<activity android:name=".EmptyActivity">
-		</activity>
+		<activity
+			android:name=".EmptyActivity"
+			android:screenOrientation="portrait"/>
+		<activity
+			android:name=".web.LoadUrlWebActivity"
+			android:screenOrientation="portrait"/>
+		<activity
+			android:name=".web.LoadDataWebActivity"
+			android:screenOrientation="portrait"/>
 	</application>
 
 </manifest>
