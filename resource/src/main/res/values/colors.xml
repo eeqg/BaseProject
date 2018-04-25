@@ -27,4 +27,7 @@
 	
 	<!-- 分割线 -->
 	<color name="colorThemeDivider">#E5E5E5</color>
+	
+	<color name="base_transparent">#00000000</color>
+	<color name="base_transparent_half">#55000000</color>
 </resources>

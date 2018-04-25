@@ -45,6 +45,12 @@
 				android:layout="@layout/include_home_tab"
 				android:text="商铺"/>
 			
+			<!--<android.support.design.widget.TabItem-->
+				<!--android:layout_width="wrap_content"-->
+				<!--android:layout_height="52dp"-->
+				<!--android:icon="@drawable/ic_tab_center"-->
+				<!--android:visibility="gone"/>-->
+			
 			<android.support.design.widget.TabItem
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
